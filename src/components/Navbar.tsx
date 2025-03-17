@@ -1,11 +1,15 @@
+
 import { useState, useEffect } from "react";
 import { Menu, X, Twitter } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,10 +21,15 @@ const Navbar = () => {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
+    if (isHomePage) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        setIsMobileMenuOpen(false);
+      }
+    } else {
+      // If not on homepage, navigate to homepage and then scroll
+      window.location.href = `/#${sectionId}`;
     }
   };
 
@@ -29,12 +38,9 @@ const Navbar = () => {
     { name: "Community", href: "community" },
     { name: "Players", href: "top-players" },
     { name: "Resources", href: "resources" },
+    { name: "FAQ", path: "/faq" },
   ];
-/* <img 
-src="public/assetsupload/0960f71e-449c-4316-b652-9cff4011d4f4.png" 
-alt="Judgment Fleet Logo" 
-className="h-10 w-auto"
-/> */
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -45,26 +51,35 @@ className="h-10 w-auto"
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
-          <a href="#" className="flex items-center gap-2" onClick={() => scrollToSection('top')}>
-           
+          <Link to="/" className="flex items-center gap-2">
             <span className="text-2xl font-display font-bold text-white">
               Judgment<span className="text-[#D946EF]">Fleet</span>
             </span>
-          </a>
+          </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={`#${link.href}`}
-                className="text-gray-300 hover:text-white transition-colors"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(link.href);
-                }}
-              >
-                {link.name}
-              </a>
+              link.path ? (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  key={link.name}
+                  href={`#${link.href}`}
+                  className="text-gray-300 hover:text-white transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(link.href);
+                  }}
+                >
+                  {link.name}
+                </a>
+              )
             ))}
           </nav>
 
@@ -97,17 +112,28 @@ className="h-10 w-auto"
           >
             <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={`#${link.href}`}
-                  className="text-gray-300 hover:text-white py-2 transition-colors"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(link.href);
-                  }}
-                >
-                  {link.name}
-                </a>
+                link.path ? (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    className="text-gray-300 hover:text-white py-2 transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={`#${link.href}`}
+                    className="text-gray-300 hover:text-white py-2 transition-colors"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(link.href);
+                    }}
+                  >
+                    {link.name}
+                  </a>
+                )
               ))}
               <Button 
                 className="bg-[#D946EF] hover:bg-[#D946EF]/90 w-full"
