@@ -24,7 +24,7 @@ export const it = {
 
   // Top Members
   ourPlayers: "I Nostri",
-  players: "Giocatori",
+  playersSection: "Giocatori",
   playersDescription: "I migliori giocatori della nostra community, pronti a condividere le loro strategie e conoscenze.",
   memberSince: "Membro dal",
 
@@ -36,7 +36,7 @@ export const it = {
 
   // Footer
   quickLinks: "Link Rapidi",
-  resources: "Risorse",
+  resourcesSection: "Risorse",
   contactsFounder: "Contatti Discord dei Founder:",
   allRightsReserved: "Tutti i diritti riservati.",
 

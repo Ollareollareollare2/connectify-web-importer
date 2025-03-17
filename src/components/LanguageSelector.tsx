@@ -15,7 +15,7 @@ const LanguageSelector = () => {
       variant="ghost"
       size="icon"
       onClick={toggleLanguage}
-      className="text-gray-300 hover:text-white"
+      className="text-gray-300 hover:text-white transition-colors"
       title={locale === "it" ? "Switch to English" : "Passa all'italiano"}
     >
       <Globe className="h-5 w-5" />
