@@ -1,5 +1,6 @@
 
 import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "../contexts/LanguageContext";
 
 export interface PlayerProps {
   id: string;
@@ -8,10 +9,12 @@ export interface PlayerProps {
   role: string;
   achievements: string[];
   bestResult?: string;
-  joinDate?: string; // Added join date property
+  joinDate?: string;
 }
 
 const PlayerCard = ({ id, name, image, role, achievements, joinDate }: PlayerProps) => {
+  const { translations } = useLanguage();
+  
   return (
     <div className="flex flex-col md:flex-row gap-6 mb-12">
       <div className="shrink-0 md:w-1/3">
@@ -28,7 +31,7 @@ const PlayerCard = ({ id, name, image, role, achievements, joinDate }: PlayerPro
         
         {/* Display join date if available */}
         {joinDate && (
-          <span className="text-gray-400 text-sm mb-4">Member since: {joinDate}</span>
+          <span className="text-gray-400 text-sm mb-4">{translations.memberSince}: {joinDate}</span>
         )}
         
         <ul className="space-y-2 text-left mt-2">

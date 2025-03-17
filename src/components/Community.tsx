@@ -1,7 +1,10 @@
 
 import { motion } from "framer-motion";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const Community = () => {
+  const { translations } = useLanguage();
+  
   return (
     <section id="community" className="py-24 px-4 md:px-6 bg-gradient-to-b from-jf-dark to-jf-gray">
       <div className="container mx-auto">
@@ -14,18 +17,18 @@ const Community = () => {
             className="lg:w-1/2"
           >
             <span className="inline-block px-3 py-1 bg-jf-blue/20 text-jf-blue rounded-full text-sm font-medium mb-4">
-              La Nostra Community
+              {translations.ourCommunity}
             </span>
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">L'Élite del Pokémon Competitivo Italiano</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">{translations.elitePokemonTitle}</h2>
             <p className="text-lg text-gray-300 mb-6">
-              Judgment Fleet non è solo un server Discord – è il punto di riferimento per i migliori giocatori italiani di Pokémon competitivo secondo le regole Smogon. Qui si riuniscono campioni nazionali, esperti di teambuilding e strateghi di alto livello.
+              {translations.communityDescription}
             </p>
             <ul className="space-y-4 text-gray-300">
               {[
-                "Tornei settimanali con premi esclusivi",
-                "Consulenze di teambuilding da parte di esperti del formato",
-                "Analisi approfondite del metagame attuale",
-                "Allenamenti con i migliori giocatori italiani"
+                translations.weeklyTournaments,
+                translations.teambuilding,
+                translations.metagameAnalysis,
+                translations.training
               ].map((item, index) => (
                 <li key={index} className="flex items-start">
                   <div className="mr-3 mt-1">
@@ -62,5 +65,3 @@ const Community = () => {
 };
 
 export default Community;
-
-

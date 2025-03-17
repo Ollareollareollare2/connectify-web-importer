@@ -1,8 +1,11 @@
 
 import { motion } from "framer-motion";
 import PlayerCard from "@/components/PlayerCard";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const TopMembers = () => {
+  const { translations } = useLanguage();
+  
   const topPlayers = [
     {
       id: "player1",
@@ -180,6 +183,7 @@ const TopMembers = () => {
       ]
     },
   ];
+  
   return (
     <section id="top-players" className="py-16 px-4 md:px-6 relative z-10 overflow-hidden">
       <div className="container mx-auto">
@@ -190,11 +194,11 @@ const TopMembers = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">I Nostri <span className="text-[#D946EF]">Giocatori</span></h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">I migliori giocatori della nostra community, pronti a condividere le loro strategie e conoscenze.</p>
+          <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+            {translations.ourPlayers} <span className="text-[#D946EF]">{translations.players}</span>
+          </h2>
+          <p className="text-gray-300 max-w-2xl mx-auto">{translations.playersDescription}</p>
         </motion.div>
-
-        
 
         {/* Player profiles in a grid - all visible at once */}
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-16">

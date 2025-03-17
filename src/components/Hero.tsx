@@ -1,8 +1,12 @@
+
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const Hero = () => {
+  const { translations } = useLanguage();
+  
   const scrollToFooter = () => {
     document.querySelector('footer')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -41,10 +45,10 @@ const Hero = () => {
             </motion.div>
             
             <span className="inline-block px-3 py-1 bg-[#D946EF]/20 text-[#D946EF] rounded-full text-sm font-medium mb-4">
-              Italian Competitive Smogon Community
+              {translations.italianCompetitiveSmogon}
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-white tracking-tight">
-            Judgment <span className="text-[#D946EF]">Fleet</span>
+              Judgment <span className="text-[#D946EF]">Fleet</span>
             </h1>
         
           </motion.div>
@@ -57,7 +61,7 @@ const Hero = () => {
           >
             <a href="https://twitter.com/JudgmentFleet" target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="px-6 py-6 bg-[#D946EF] hover:bg-[#D946EF]/90">
-                Unisciti al Discord
+                {translations.joinDiscord}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </a>
@@ -66,7 +70,7 @@ const Hero = () => {
               className="px-6 py-6 bg-jf-purple hover:bg-jf-purple/90"
               onClick={scrollToFooter}
             >
-              Scopri di più
+              {translations.discoverMore}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </motion.div>

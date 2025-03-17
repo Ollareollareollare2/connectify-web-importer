@@ -1,9 +1,11 @@
 
 import { useState, useEffect } from "react";
-import { Menu, X, Twitter } from "lucide-react";
+import { Menu, X, Twitter, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLanguage } from "../contexts/LanguageContext";
+import LanguageSelector from "./LanguageSelector";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -11,6 +13,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === "/";
+  const { translations } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,10 +38,10 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { name: "Home", href: "top" },
-    { name: "Community", href: "community" },
-    { name: "Players", href: "top-players" },
-    { name: "Resources", href: "resources" },
+    { name: translations.home, href: "top" },
+    { name: translations.community, href: "community" },
+    { name: translations.players, href: "top-players" },
+    { name: translations.resources, href: "resources" },
     { name: "FAQ", path: "/faq" },
   ];
 
@@ -84,22 +87,26 @@ const Navbar = () => {
             ))}
           </nav>
 
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-4">
+            <LanguageSelector />
             <Button 
               className="bg-[#D946EF] hover:bg-[#D946EF]/90"
               onClick={() => window.open('https://twitter.com/JudgmentFleet', '_blank')}
             >
               <Twitter size={18} className="mr-2" />
-              Follow on Twitter
+              {translations.followOnTwitter}
             </Button>
           </div>
 
-          <button
-            className="md:hidden text-white"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="md:hidden flex items-center gap-3">
+            <LanguageSelector />
+            <button
+              className="text-white"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -141,7 +148,7 @@ const Navbar = () => {
                 onClick={() => window.open('https://twitter.com/JudgmentFleet', '_blank')}
               >
                 <Twitter size={18} className="mr-2" />
-                Follow on Twitter
+                {translations.followOnTwitter}
               </Button>
             </div>
           </motion.div>

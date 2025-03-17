@@ -1,8 +1,10 @@
+
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useLanguage } from "../contexts/LanguageContext";
 import {
   Accordion,
   AccordionContent,
@@ -13,13 +15,14 @@ import { HelpCircle } from "lucide-react";
 
 const FAQ = () => {
   const [visible, setVisible] = useState(false);
+  const { translations, locale } = useLanguage();
 
   useEffect(() => {
     // Always scroll to top when mounting
     window.scrollTo(0, 0);
   }, []);
 
-  const faqItems = [
+  const faqItems = locale === "it" ? [
     {
       question: "Che cos'è Judgment Fleet?",
       answer: "Judgment Fleet è una comunità decentralizzata di appassionati del mondo crypto e blockchain che condividono conoscenze, risorse e opportunità nel settore."
@@ -48,6 +51,35 @@ const FAQ = () => {
       question: "Posso contribuire alla comunità con i miei contenuti?",
       answer: "Assolutamente! Accogliamo con piacere contributi da parte dei membri della comunità. Contattaci per condividere i tuoi articoli, analisi o proposte di collaborazione."
     }
+  ] : [
+    {
+      question: "What is Judgment Fleet?",
+      answer: "Judgment Fleet is a decentralized community of crypto and blockchain enthusiasts who share knowledge, resources, and opportunities in the sector."
+    },
+    {
+      question: "How can I join the community?",
+      answer: "You can join our community by following us on Twitter and participating in discussions on our social channels. We regularly organize events and virtual meetings for our members."
+    },
+    {
+      question: "What are the benefits of being part of Judgment Fleet?",
+      answer: "Judgment Fleet members have access to exclusive resources, market analysis, networking opportunities, and the ability to collaborate with other blockchain professionals."
+    },
+    {
+      question: "Does Judgment Fleet offer consulting services?",
+      answer: "Yes, through our network of experts, we offer personalized consulting services on blockchain projects, investment strategies, and technological implementations."
+    },
+    {
+      question: "How can I stay updated on the latest news?",
+      answer: "Follow us on Twitter and subscribe to our newsletter to receive regular updates on our activities, upcoming events, and the latest trends in the blockchain world."
+    },
+    {
+      question: "Do you organize live events?",
+      answer: "Yes, we regularly organize both virtual events and live meetings in major cities. Follow us on social media to find out about upcoming appointments."
+    },
+    {
+      question: "Can I contribute to the community with my content?",
+      answer: "Absolutely! We welcome contributions from community members. Contact us to share your articles, analysis, or collaboration proposals."
+    }
   ];
 
   return (
@@ -62,11 +94,11 @@ const FAQ = () => {
         >
           <div className="flex items-center gap-3 mb-6">
             <HelpCircle className="h-8 w-8 text-[#D946EF]" />
-            <h1 className="text-4xl md:text-5xl font-display font-bold">Domande Frequenti</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold">{translations.frequentlyAskedQuestions}</h1>
           </div>
           
           <p className="text-gray-300 text-lg mb-12">
-            Trova risposte alle domande più comuni su Judgment Fleet. Se non trovi ciò che stai cercando, non esitare a contattarci.
+            {translations.faqDescription}
           </p>
 
           <Accordion type="single" collapsible className="w-full space-y-4">
@@ -87,12 +119,12 @@ const FAQ = () => {
           </Accordion>
 
           <div className="mt-16 text-center">
-            <p className="text-gray-300 mb-6">Hai altre domande?</p>
+            <p className="text-gray-300 mb-6">{translations.otherQuestions}</p>
             <Button 
               className="bg-[#D946EF] hover:bg-[#D946EF]/90"
               onClick={() => window.open('https://twitter.com/JudgmentFleet', '_blank')}
             >
-              Contattaci su Twitter
+              {translations.contactTwitter}
             </Button>
           </div>
         </motion.div>

@@ -1,12 +1,16 @@
+
 import { Github, Twitter } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const Footer = () => {
+  const { translations } = useLanguage();
+  
   const quickLinks = [
-    { name: "Home", url: "https://www.smogon.com" },
-    { name: "Caratteristiche", url: "https://www.smogon.com" },
-    { name: "Community", url: "https://www.smogon.com" },
-    { name: "Eventi", url: "https://www.smogon.com" },
-    { name: "Unisciti", url: "https://www.smogon.com" }
+    { name: translations.home, url: "https://www.smogon.com" },
+    { name: translations.community, url: "https://www.smogon.com" },
+    { name: translations.players, url: "https://www.smogon.com" },
+    { name: "FAQ", url: "https://www.smogon.com" },
+    { name: translations.resources, url: "https://www.smogon.com" }
   ];
 
   const resources = [
@@ -32,8 +36,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4 mt-6">
             <p className="text-gray-400 max-w-md">
-          Contatti Discord dei Founder:
-            
+              {translations.contactsFounder}
             </p>
          
             </div>
@@ -58,7 +61,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Link Rapidi</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{translations.quickLinks}</h3>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.name}>
@@ -71,7 +74,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Risorse</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{translations.resources}</h3>
             <ul className="space-y-2">
               {resources.map((link) => (
                 <li key={link.name}>
@@ -85,7 +88,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-white/10 mt-12 pt-8 text-center text-gray-400">
-          <p>© {new Date().getFullYear()} Judgment Fleet. Tutti i diritti riservati.</p>
+          <p>© {new Date().getFullYear()} Judgment Fleet. {translations.allRightsReserved}</p>
         </div>
       </div>
     </footer>
