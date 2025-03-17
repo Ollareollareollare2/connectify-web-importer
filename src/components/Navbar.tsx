@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import { Menu, X, Twitter } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const isHomePage = location.pathname === "/";
 
   useEffect(() => {
@@ -28,8 +29,8 @@ const Navbar = () => {
         setIsMobileMenuOpen(false);
       }
     } else {
-      // If not on homepage, navigate to homepage and then scroll
-      window.location.href = `/#${sectionId}`;
+      // Navigate to homepage and then scroll to section
+      navigate('/', { state: { scrollTo: sectionId } });
     }
   };
 

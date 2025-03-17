@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "@/components/ui/button";
@@ -14,6 +13,11 @@ import { HelpCircle } from "lucide-react";
 
 const FAQ = () => {
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    // Always scroll to top when mounting
+    window.scrollTo(0, 0);
+  }, []);
 
   const faqItems = [
     {
