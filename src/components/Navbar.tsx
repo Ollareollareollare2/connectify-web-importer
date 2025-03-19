@@ -21,31 +21,54 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      // Only track sections when on homepage
       if (isHomePage) {
-        const sections = ["top", "community", "top-players", "resources"];
-        
-        let currentSection = "top";
+        // Get all sections and their positions
+        const sections = {
+          top: document.getElementById('top'),
+          community: document.getElementById('community'),
+          'top-players': document.getElementById('top-players'),
+          resources: document.getElementById('resources')
+        };
+
+        // Find which section is most visible
+        const viewportHeight = window.innerHeight;
+        const viewportMiddle = window.scrollY + (viewportHeight / 2);
+
+        let currentSection = 'top';
         let minDistance = Infinity;
-        
-        // Trova la sezione più vicina al viewport
-        sections.forEach(sectionId => {
-          const element = document.getElementById(sectionId);
+
+        Object.entries(sections).forEach(([id, element]) => {
           if (element) {
             const rect = element.getBoundingClientRect();
-            const distanceFromTop = Math.abs(rect.top);
-            if (distanceFromTop < minDistance) {
-              minDistance = distanceFromTop;
-              currentSection = sectionId;
+            const absDistance = Math.abs((window.scrollY + rect.top) - viewportMiddle);
+            if (absDistance < minDistance) {
+              minDistance = absDistance;
+              currentSection = id;
             }
           }
         });
-        
+
         setActiveSection(currentSection);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
+
+    // Handle initial scroll position on refresh
+    setTimeout(() => {
+      const hash = window.location.hash.slice(1);
+      if (hash && isHomePage) {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView();
+          setActiveSection(hash);
+        }
+      } else if (isHomePage) {
+        window.scrollTo(0, 0);
+        setActiveSection('top');
+      }
+    }, 100);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isHomePage]);
 
@@ -53,16 +76,16 @@ const Navbar = () => {
     setIsMobileMenuOpen(false);
     
     if (!isHomePage) {
-      navigate('/', { state: { scrollTo: sectionId } });
+      navigate('/', { replace: true, state: { scrollTo: sectionId } });
       return;
     }
 
-    // Piccolo delay per permettere al menu mobile di chiudersi
-    await new Promise(resolve => setTimeout(resolve, 100));
-    
     const element = document.getElementById(sectionId);
     if (element) {
+      // Update URL hash without triggering scroll
+      window.history.pushState(null, '', `#${sectionId}`);
       element.scrollIntoView({ behavior: 'smooth' });
+      setActiveSection(sectionId);
     }
   };
 
@@ -79,8 +102,9 @@ const Navbar = () => {
   const isLinkActive = (link: typeof navLinks[0]) => {
     if (link.path) {
       return location.pathname === link.path;
-    } 
-    return isHomePage && (activeSection === link.href || location.hash === `#${link.href}`);
+    }
+    const currentHash = location.hash.slice(1) || 'top';
+    return isHomePage && (activeSection === link.href || currentHash === link.href);
   };
 
   const handleNavClick = (link: typeof navLinks[0]) => {

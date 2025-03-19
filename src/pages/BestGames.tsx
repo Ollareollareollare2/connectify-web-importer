@@ -29,40 +29,55 @@ const BestGames = () => {
   const games: GameData[] = [
     {
       id: 1,
-      imageUrl: "/jf-assets/08a845eb-b51d-4060-a584-b546b5f9ef7a.png",
-      replayUrl: "https://replay.pokemonshowdown.com/smogtours-gen9ubers-778767?p2",
-      tournament: "Smogon Tour",
-      phase: "Semifinals",
-      format: "Gen 9 Ubers",
-      players: "paispaz vs Opponent",
+      imageUrl: "/jf-assets/raiza.png",
+      replayUrl: "https://replay.pokemonshowdown.com/smogtours-gen8ou-781566",
+      tournament: "World Cup of Pokemon 2024",
+      phase: "Finals",
+      format: "Gen 8 OU",
+      players: "Raiza vs Luthier",
       description: locale === "it" 
-        ? "Un intenso match della fase finale dove Zapdos e Zacian si affrontano in uno scontro decisivo al turn 26." 
-        : "An intense match in the final phase where Zapdos and Zacian face off in a decisive battle at turn 26."
-    },
+        ? "Raiza, con un team particolarmente non convenzionale per la tier, riesce a sconfiggere Luthier in un match-up molto complesso. Dopo aver trovato l’occasione giusta per rimuovere Volcanion, affronta al meglio Arctozolt, uno dei Pokemon più pericolosi per il team, prima di chiudere la partita con Volcarona." 
+        : "Raiza, using a highly unconventional team for the tier, manages to defeat Luthier in a very challenging match-up. After finding the right opportunity to remove Volcanion, he plays at his best against Arctozolt, one of the main threats in his own team, before securing the win with Volcarona."
+    }
+,    
     {
       id: 2,
       imageUrl: "/jf-assets/b80c9f4c-e630-41ac-951b-d00392fad22d.png",
       replayUrl: "https://replay.pokemonshowdown.com/smogtours-gen9ou-781119?p2",
-      tournament: "World Cup of Pokemonn 2024",
+      tournament: "World Cup of Pokemon 2024",
       phase: "Finals",
       format: "Gen 9 OU",
       players: "Pais vs Oldspicemike",
       description: locale === "it" 
-        ? "Match del trollaggio aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa." 
-        : "Strategic OverUsed match with Suicune facing off against Wolves in a tactical game at turn 17."
+        ? "Pais utilizza un Sun Team e riesce a conquistare la vittoria grazie al posizionamento strategico di Tera Ground Iron Crown. Dopo aver attirato e eliminato le minacce che avrebbero potuto fermare il suo sweep, sfrutta il momento giusto per chiudere la partita con una gestione tattica impeccabile." 
+        : "Pais uses a Sun Team and secures the victory through the strategic positioning of Tera Ground Iron Crown. After luring and eliminating the threats that could have stopped its sweep, he capitalizes on the perfect moment to close out the game with flawless tactical play."
     },
     {
       id: 3,
-      imageUrl: "/jf-assets/5907d0fc-8096-49da-88b6-34e98bb535fa.png",
-      replayUrl: "https://replay.pokemonshowdown.com/smogtours-gen7ou-781034?p2",
-      tournament: "Gen 7 Championship",
-      phase: "Group Stage",
-      format: "Gen 7 OU",
-      players: "shootouts vs Rival",
+      imageUrl: "/jf-assets/prinz.png",
+      replayUrl: "https://replay.pokemonshowdown.com/smogtours-gen3ou-482366",
+      tournament: "Smogon Premier League XI",
+      phase: "Finals",
+      format: "Gen 3 OU",
+      players: "Prinz vs Tamahome",
       description: locale === "it" 
-        ? "Una classica battaglia di Gen 7 OU con Magearna contro Lurantis che dimostra la profondità strategica del metagame al turn 12." 
-        : "A classic Gen 7 OU battle featuring Magearna against Lurantis showcasing the strategic depth of the metagame at turn 12."
+        ? "Prinz (aka. Alexander) ottiene una vittoria impressionante nelle finali della Smogon Premier League XI con una gestione difensiva impeccabile e un uso strategico delle condizioni di status. Dopo un inizio bilanciato, sfrutta al meglio Swampert per assorbire la pressione avversaria e logora gradualmente il team di Tamahome. Il momento chiave è la gestione di Tyranitar, che impone il ritmo della partita, fino alla chiusura perfetta nel late game." 
+        : "Prinz (aka. Alexander) secures an impressive victory in the Smogon Premier League XI finals, showcasing impeccable defensive play and strategic use of status conditions. After a balanced early game, he maximizes Swampert’s ability to absorb pressure and gradually wears down Tamahome’s team. The key turning point is the smart handling of Tyranitar, which dictates the pace, leading to a flawless late-game finish."
     }
+,    
+{
+  id: 4,
+  imageUrl: "/jf-assets/empo.png",
+  replayUrl: "https://replay.pokemonshowdown.com/smogtours-gen7ou-781034?p2",
+  tournament: "Smogon Tour 36",
+  phase: "Finals",
+  format: "Gen 7 OU",
+  players: "Empo vs Vertex",
+  description: locale === "it" 
+    ? "Empo si assicura il terzo Smogon Tour trophy della sua carriera, un risultato mai raggiunto prima da nessun altro giocatore del sito. In una finale combattutissima contro Vertex, uno dei migliori player della scena, affronta un intenso mirror match tra Psyspam teams e riesce a imporsi con un’ottima gestione delle risorse e del momentum." 
+    : "Empo secures the third Smogon Tour trophy of his career, an achievement never before accomplished by any other player on the site. In a hard-fought final against Vertex, one of the best players in the scene, he navigates an intense Psyspam mirror match and claims victory through excellent resource management and momentum control."
+}
+,
   ];
 
   return (
@@ -83,8 +98,8 @@ const BestGames = () => {
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               {locale === "it" 
-                ? "Una selezione dei migliori match giocati dai membri di Judgment Fleet nei tornei competitivi." 
-                : "A selection of the best matches played by Judgment Fleet members in competitive tournaments."}
+                ? "Una selezione dei migliori match giocati dai Membri della Community nei tornei competitivi." 
+                : "A selection of the best matches played by Community Members in competitive tournaments."}
             </p>
           </motion.div>
 

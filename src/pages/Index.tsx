@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import { motion } from "framer-motion";
@@ -19,6 +18,33 @@ const Index = () => {
   const footerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    // Handle section scrolling from navigation or refresh
+    const handleInitialScroll = () => {
+      const hash = window.location.hash.slice(1);
+      if (hash) {
+        setTimeout(() => {
+          const element = document.getElementById(hash);
+          if (element) {
+            element.scrollIntoView();
+          }
+        }, 100);
+      } else {
+        window.scrollTo(0, 0);
+      }
+    };
+
+    handleInitialScroll();
+
+    // Handle scroll restoration
+    if (location.state && location.state.scrollTo) {
+      setTimeout(() => {
+        const element = document.getElementById(location.state.scrollTo);
+        if (element) {
+          element.scrollIntoView();
+        }
+      }, 100);
+    }
+
     // Handle scroll detection
     const handleScroll = () => {
       // Show top button when scrolled down
@@ -34,19 +60,6 @@ const Index = () => {
 
     window.addEventListener("scroll", handleScroll);
     
-    // Handle initial scroll if coming from another page
-    if (location.state && location.state.scrollTo) {
-      setTimeout(() => {
-        const element = document.getElementById(location.state.scrollTo);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-    }
-    
-    // Always scroll to the top when the component mounts
-    window.scrollTo(0, 0);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, [location]);
 

@@ -82,6 +82,7 @@ const TopMembers = () => {
       achievements: [
         "Smogon Premier League x1", 
         "Smogon Classic [Playoffs]",
+        "Multiple Circuits [Playoffs]",
       ]
     },
     {
