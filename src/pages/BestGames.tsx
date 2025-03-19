@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "../contexts/LanguageContext";
 import { ExternalLink } from "lucide-react";
@@ -20,6 +20,11 @@ interface GameData {
 
 const BestGames = () => {
   const { locale } = useLanguage();
+  
+  // Ensure scroll to top on page load/refresh
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   
   const games: GameData[] = [
     {
