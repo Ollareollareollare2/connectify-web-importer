@@ -15,14 +15,37 @@ const Navbar = () => {
   const isHomePage = location.pathname === "/";
   const { translations } = useLanguage();
 
+  // State to track active section in homepage
+  const [activeSection, setActiveSection] = useState("top");
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+
+      // Only track sections when on homepage
+      if (isHomePage) {
+        // Get all sections
+        const sections = ["top", "community", "top-players", "resources"];
+        
+        // Find which section is currently most visible
+        for (const sectionId of sections) {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            const isInView = rect.top <= 200 && rect.bottom >= 200;
+            
+            if (isInView) {
+              setActiveSection(sectionId);
+              break;
+            }
+          }
+        }
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   const scrollToSection = async (sectionId: string) => {
     setIsMobileMenuOpen(false);
@@ -50,6 +73,16 @@ const Navbar = () => {
     { name: "FAQ", path: "/faq" },
   ];
 
+  // Helper to check if link is active
+  const isLinkActive = (link: typeof navLinks[0]) => {
+    if (link.path) {
+      return location.pathname === link.path;
+    } else if (isHomePage) {
+      return activeSection === link.href;
+    }
+    return false;
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -69,29 +102,55 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Navigation - center for large screens, moves toward right for medium screens */}
+          {/* Navigation - center */}
           <nav className="hidden md:flex items-center justify-center flex-grow ml-auto">
-            <div className="xl:max-w-4xl xl:flex xl:items-center xl:gap-20 lg:gap-12 md:gap-8 lg:flex md:flex md:items-center">
+            <div className="max-w-4xl flex items-center gap-20">
               {navLinks.map((link) => (
                 link.path ? (
                   <Link
                     key={link.name}
                     to={link.path}
-                    className="text-gray-300 hover:text-white transition-colors"
+                    className={`relative transition-colors ${
+                      isLinkActive(link) 
+                        ? "text-white font-medium" 
+                        : "text-gray-300 hover:text-white"
+                    }`}
                   >
                     {link.name}
+                    {isLinkActive(link) && (
+                      <motion.div 
+                        layoutId="navbar-indicator"
+                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#D946EF]"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    )}
                   </Link>
                 ) : (
                   <a
                     key={link.name}
                     href={`#${link.href}`}
-                    className="text-gray-300 hover:text-white transition-colors"
+                    className={`relative transition-colors ${
+                      isLinkActive(link) 
+                        ? "text-white font-medium" 
+                        : "text-gray-300 hover:text-white"
+                    }`}
                     onClick={(e) => {
                       e.preventDefault();
                       scrollToSection(link.href);
                     }}
                   >
                     {link.name}
+                    {isLinkActive(link) && (
+                      <motion.div 
+                        layoutId="navbar-indicator"
+                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#D946EF]"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    )}
                   </a>
                 )
               ))}
@@ -99,7 +158,7 @@ const Navbar = () => {
           </nav>
 
           {/* Buttons - right */}
-          <div className="hidden md:flex items-center gap-4 flex-shrink-0 md:ml-4 lg:ml-8">
+          <div className="hidden md:flex items-center gap-4 flex-shrink-0">
             <LanguageSelector />
             <Button 
               className="bg-[#D946EF] hover:bg-[#D946EF]/90"
@@ -137,7 +196,9 @@ const Navbar = () => {
                   <Link
                     key={link.name}
                     to={link.path}
-                    className="text-gray-300 hover:text-white py-2 transition-colors"
+                    className={`text-gray-300 hover:text-white py-2 transition-colors ${
+                      isLinkActive(link) ? "text-white font-medium pl-2 border-l-2 border-[#D946EF]" : ""
+                    }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.name}
@@ -146,7 +207,9 @@ const Navbar = () => {
                   <a
                     key={link.name}
                     href={`#${link.href}`}
-                    className="text-gray-300 hover:text-white py-2 transition-colors"
+                    className={`text-gray-300 hover:text-white py-2 transition-colors ${
+                      isLinkActive(link) ? "text-white font-medium pl-2 border-l-2 border-[#D946EF]" : ""
+                    }`}
                     onClick={(e) => {
                       e.preventDefault();
                       scrollToSection(link.href);
