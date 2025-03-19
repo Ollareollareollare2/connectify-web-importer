@@ -5,7 +5,7 @@ import { useLanguage } from "../contexts/LanguageContext";
 import { ExternalLink } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import JudgmentFleetBanner from "../components/JudgmentFleetBanner";
+
 
 interface GameData {
   id: number;
@@ -29,7 +29,7 @@ const BestGames = () => {
   const games: GameData[] = [
     {
       id: 1,
-      imageUrl: "/lovable-uploads/08a845eb-b51d-4060-a584-b546b5f9ef7a.png",
+      imageUrl: "/jf-assets/08a845eb-b51d-4060-a584-b546b5f9ef7a.png",
       replayUrl: "https://replay.pokemonshowdown.com/smogtours-gen9ubers-778767?p2",
       tournament: "Smogon Tour",
       phase: "Semifinals",
@@ -41,19 +41,19 @@ const BestGames = () => {
     },
     {
       id: 2,
-      imageUrl: "/lovable-uploads/b80c9f4c-e630-41ac-951b-d00392fad22d.png",
+      imageUrl: "/jf-assets/b80c9f4c-e630-41ac-951b-d00392fad22d.png",
       replayUrl: "https://replay.pokemonshowdown.com/smogtours-gen9ou-781119?p2",
-      tournament: "Smogon Tour",
-      phase: "Quarterfinals",
+      tournament: "World Cup of Pokemonn 2024",
+      phase: "Finals",
       format: "Gen 9 OU",
-      players: "vinn0558 vs Challenger",
+      players: "Pais vs Oldspicemike",
       description: locale === "it" 
-        ? "Match strategico di OverUsed con Suicune che affronta i Wolves in una partita tattica al turn 17." 
+        ? "Match del trollaggio aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa." 
         : "Strategic OverUsed match with Suicune facing off against Wolves in a tactical game at turn 17."
     },
     {
       id: 3,
-      imageUrl: "/lovable-uploads/5907d0fc-8096-49da-88b6-34e98bb535fa.png",
+      imageUrl: "/jf-assets/5907d0fc-8096-49da-88b6-34e98bb535fa.png",
       replayUrl: "https://replay.pokemonshowdown.com/smogtours-gen7ou-781034?p2",
       tournament: "Gen 7 Championship",
       phase: "Group Stage",
@@ -68,7 +68,7 @@ const BestGames = () => {
   return (
     <div className="min-h-screen bg-jf-dark text-white">
       <Navbar />
-      <JudgmentFleetBanner />
+    
       
       <div className="pt-32 pb-24 px-4 md:px-6">
         <div className="container mx-auto">

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Menu, X, Twitter } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -24,22 +23,25 @@ const Navbar = () => {
 
       // Only track sections when on homepage
       if (isHomePage) {
-        // Get all sections
         const sections = ["top", "community", "top-players", "resources"];
         
-        // Find which section is currently most visible
-        for (const sectionId of sections) {
+        let currentSection = "top";
+        let minDistance = Infinity;
+        
+        // Trova la sezione più vicina al viewport
+        sections.forEach(sectionId => {
           const element = document.getElementById(sectionId);
           if (element) {
             const rect = element.getBoundingClientRect();
-            const isInView = rect.top <= 200 && rect.bottom >= 200;
-            
-            if (isInView) {
-              setActiveSection(sectionId);
-              break;
+            const distanceFromTop = Math.abs(rect.top);
+            if (distanceFromTop < minDistance) {
+              minDistance = distanceFromTop;
+              currentSection = sectionId;
             }
           }
-        }
+        });
+        
+        setActiveSection(currentSection);
       }
     };
 
@@ -77,10 +79,22 @@ const Navbar = () => {
   const isLinkActive = (link: typeof navLinks[0]) => {
     if (link.path) {
       return location.pathname === link.path;
-    } else if (isHomePage) {
-      return activeSection === link.href;
+    } 
+    return isHomePage && (activeSection === link.href || location.hash === `#${link.href}`);
+  };
+
+  const handleNavClick = (link: typeof navLinks[0]) => {
+    if (link.path && location.pathname === link.path) {
+      // If we're already on the page, scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (link.path) {
+      // Otherwise navigate to the page
+      navigate(link.path);
+    } else {
+      // Handle homepage section navigation
+      scrollToSection(link.href);
     }
-    return false;
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -115,6 +129,10 @@ const Navbar = () => {
                         ? "text-white font-medium" 
                         : "text-gray-300 hover:text-white"
                     }`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(link);
+                    }}
                   >
                     {link.name}
                     {isLinkActive(link) && (
@@ -137,8 +155,8 @@ const Navbar = () => {
                         : "text-gray-300 hover:text-white"
                     }`}
                     onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(link.href);
+                      e.preventDefault(); 
+                      handleNavClick(link);
                     }}
                   >
                     {link.name}
@@ -199,7 +217,10 @@ const Navbar = () => {
                     className={`text-gray-300 hover:text-white py-2 transition-colors ${
                       isLinkActive(link) ? "text-white font-medium pl-2 border-l-2 border-[#D946EF]" : ""
                     }`}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(link);
+                    }}
                   >
                     {link.name}
                   </Link>
@@ -212,7 +233,7 @@ const Navbar = () => {
                     }`}
                     onClick={(e) => {
                       e.preventDefault();
-                      scrollToSection(link.href);
+                      handleNavClick(link);
                     }}
                   >
                     {link.name}
