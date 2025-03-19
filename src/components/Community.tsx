@@ -2,17 +2,13 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "../contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
-import { Users, Book, ArrowRight } from "lucide-react";
+import { Users, ExternalLink, ArrowRight } from "lucide-react";
 
 const Community = () => {
   const { translations } = useLanguage();
   
   const scrollToPlayers = () => {
     document.getElementById('top-players')?.scrollIntoView({ behavior: 'smooth' });
-  };
-  
-  const scrollToResources = () => {
-    document.getElementById('resources')?.scrollIntoView({ behavior: 'smooth' });
   };
   
   return (
@@ -66,12 +62,11 @@ const Community = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button 
-                variant="outline" 
-                className="border-jf-blue text-jf-blue hover:bg-jf-blue/10 transition-colors"
-                onClick={scrollToResources}
+                className="bg-jf-blue/10 hover:bg-jf-blue/20 text-white border border-jf-blue/30 transition-colors"
+                onClick={() => window.location.href = '/best-games'}
               >
-                <Book className="mr-2 h-5 w-5" />
-                {translations.resources}
+                <ExternalLink className="mr-2 h-5 w-5" />
+                Best Games
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>

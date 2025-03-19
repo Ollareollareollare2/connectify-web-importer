@@ -57,18 +57,18 @@ const Hero = () => {
           >
             <Button 
               size="lg" 
-              className="px-6 py-6 bg-[#D946EF] hover:bg-[#D946EF]/90"
-              onClick={scrollToPlayers}
-            >
-              Hall of Fame
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button 
-              size="lg" 
               className="px-6 py-6 bg-jf-purple hover:bg-jf-purple/90"
               onClick={scrollToCommunity}
             >
               {translations.discoverMore}
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button 
+              size="lg" 
+              className="px-6 py-6 bg-[#D946EF] hover:bg-[#D946EF]/90"
+              onClick={scrollToPlayers}
+            >
+              Hall of Fame
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button 

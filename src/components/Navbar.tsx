@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Menu, X, Twitter } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -53,24 +54,24 @@ const Navbar = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "py-3 bg-jf-dark/80 backdrop-blur-md border-b border-white/10"
-          : "py-5 bg-transparent"
+          ? "py-2 bg-jf-dark/80 backdrop-blur-md border-b border-white/10"
+          : "py-4 bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex items-center">
+        <div className="flex items-center justify-between">
           {/* Logo - left */}
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center gap-2">
-              <span className="text-2xl font-display font-bold text-white">
+              <span className="text-xl md:text-2xl font-display font-bold text-white">
                 Judgment<span className="text-[#D946EF]">Fleet</span>
               </span>
             </Link>
           </div>
 
           {/* Navigation - center */}
-          <nav className="hidden md:flex items-center justify-center flex-grow ml-auto">
-            <div className="max-w-4xl flex items-center gap-20">
+          <nav className="hidden md:flex items-center justify-center">
+            <div className="flex items-center space-x-8">
               {navLinks.map((link) => (
                 link.path ? (
                   <Link
@@ -110,7 +111,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center gap-3 ml-auto">
+          <div className="md:hidden flex items-center gap-3">
             <LanguageSelector />
             <button
               className="text-white"

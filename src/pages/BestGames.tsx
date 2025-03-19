@@ -13,6 +13,7 @@ interface GameData {
   replayUrl: string;
   tournament: string;
   phase: string;
+  format: string;
   players: string;
   description: string;
 }
@@ -27,6 +28,7 @@ const BestGames = () => {
       replayUrl: "https://replay.pokemonshowdown.com/smogtours-gen9ubers-778767?p2",
       tournament: "Smogon Tour",
       phase: "Semifinals",
+      format: "Gen 9 Ubers",
       players: "paispaz vs Opponent",
       description: locale === "it" 
         ? "Un intenso match della fase finale dove Zapdos e Zacian si affrontano in uno scontro decisivo al turn 26." 
@@ -38,6 +40,7 @@ const BestGames = () => {
       replayUrl: "https://replay.pokemonshowdown.com/smogtours-gen9ou-781119?p2",
       tournament: "Smogon Tour",
       phase: "Quarterfinals",
+      format: "Gen 9 OU",
       players: "vinn0558 vs Challenger",
       description: locale === "it" 
         ? "Match strategico di OverUsed con Suicune che affronta i Wolves in una partita tattica al turn 17." 
@@ -49,6 +52,7 @@ const BestGames = () => {
       replayUrl: "https://replay.pokemonshowdown.com/smogtours-gen7ou-781034?p2",
       tournament: "Gen 7 Championship",
       phase: "Group Stage",
+      format: "Gen 7 OU",
       players: "shootouts vs Rival",
       description: locale === "it" 
         ? "Una classica battaglia di Gen 7 OU con Magearna contro Lurantis che dimostra la profondità strategica del metagame al turn 12." 
@@ -116,12 +120,15 @@ const BestGames = () => {
                 {/* Game Info */}
                 <div className="lg:w-1/2">
                   <div className="space-y-4">
-                    <div>
+                    <div className="flex flex-wrap gap-3">
                       <span className="inline-block px-3 py-1 bg-jf-blue/20 text-jf-blue rounded-full text-sm font-medium">
                         {game.tournament}
                       </span>
-                      <span className="inline-block ml-3 px-3 py-1 bg-[#D946EF]/20 text-[#D946EF] rounded-full text-sm font-medium">
+                      <span className="inline-block px-3 py-1 bg-[#D946EF]/20 text-[#D946EF] rounded-full text-sm font-medium">
                         {game.phase}
+                      </span>
+                      <span className="inline-block px-3 py-1 bg-jf-purple/20 text-jf-purple rounded-full text-sm font-medium">
+                        {game.format}
                       </span>
                     </div>
                     
